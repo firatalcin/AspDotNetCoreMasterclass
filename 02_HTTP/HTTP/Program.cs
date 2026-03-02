@@ -19,11 +19,22 @@ app.Run(async (HttpContext context) =>
     
     //HTTP Response Headers
     
-    context.Response.Headers["MyKey"] = "my value";
-    context.Response.Headers["Server"] = "My server";
-    context.Response.Headers["Content-Type"] = "text/html";
-    await context.Response.WriteAsync("<h1>Hello</h1>");
-    await context.Response.WriteAsync("<h2>World</h2>");
+    // context.Response.Headers["MyKey"] = "my value";
+    // context.Response.Headers["Server"] = "My server";
+    // context.Response.Headers["Content-Type"] = "text/html";
+    // await context.Response.WriteAsync("<h1>Hello</h1>");
+    // await context.Response.WriteAsync("<h2>World</h2>");
+    
+    //HTTP Request
+    
+    string path = context.Request.Path;
+    string method = context.Request.Method;
+    
+    context.Response.Headers["Content-type"] = "text/html";
+    await context.Response.WriteAsync($"<p>{path}</p>");
+    await context.Response.WriteAsync($"<p>{method}</p>");
+    
+    
     
 });
 
