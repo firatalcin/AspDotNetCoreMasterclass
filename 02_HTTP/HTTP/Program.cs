@@ -36,15 +36,24 @@ app.Run(async (HttpContext context) =>
     
     //Query String
     
-    context.Response.Headers["Content-type"] = "text/html";
-    if (context.Request.Method == "GET")
-    {
-        if (context.Request.Query.ContainsKey("id"))
-        {
-            string id = context.Request.Query["id"];
-            await context.Response.WriteAsync($"<p>{id}</p>");
-        }
-    }
+    // context.Response.Headers["Content-type"] = "text/html";
+    // if (context.Request.Method == "GET")
+    // {
+    //     if (context.Request.Query.ContainsKey("id"))
+    //     {
+    //         string id = context.Request.Query["id"];
+    //         await context.Response.WriteAsync($"<p>{id}</p>");
+    //     }
+    // }
+    
+    //HTTP Request Headers
+    
+    // context.Response.Headers["Content-type"] = "text/html";
+    // if (context.Request.Headers.ContainsKey("User-Agent"))
+    // {
+    //     string userAgent = context.Request.Headers["User-Agent"];
+    //     await context.Response.WriteAsync($"<p>{userAgent}</p>");
+    // }
     
     
     
