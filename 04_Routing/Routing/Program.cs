@@ -51,6 +51,19 @@ app.Map("products/details/{id=1}", async context =>
     await context.Response.WriteAsync($"Product details - {id}");
 });
 
+//4- Optional Parameters
 
+app.Map("products/details/{id?}", async context =>
+{
+    if (context.Request.RouteValues.ContainsKey("id"))
+    {
+        int id = Convert.ToInt32(context.Request.RouteValues["id"]);
+        await context.Response.WriteAsync($"Product details - {id}");
+    }
+    else
+    {
+        await context.Response.WriteAsync($"Product details - id is not supplied");
+    }
+});
 
 app.Run();
