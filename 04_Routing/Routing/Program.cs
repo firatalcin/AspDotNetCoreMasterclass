@@ -66,4 +66,27 @@ app.Map("products/details/{id?}", async context =>
     }
 });
 
+//5- Route Constraints Part 1
+
+app.Map("products/details/{id:int?}", async context =>
+{
+    if (context.Request.RouteValues.ContainsKey("id"))
+    {
+        int id = Convert.ToInt32(context.Request.RouteValues["id"]);
+        await context.Response.WriteAsync($"Product details - {id}");
+    }
+    else
+    {
+        await context.Response.WriteAsync($"Product details - id is not supplied");
+    }
+});
+
+app.Map("daily-digest-report/{reportdate:datetime}", async (context) => 
+{
+    DateTime reportDate = Convert.ToDateTime(context.Request.RouteValues["reportdate"]);
+
+    await context.Response.WriteAsync($"In daily-digest-report - {reportDate.ToShortDateString()}");
+});
+
+
 app.Run();
