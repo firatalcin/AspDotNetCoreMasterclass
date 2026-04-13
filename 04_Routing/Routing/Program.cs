@@ -89,4 +89,13 @@ app.Map("daily-digest-report/{reportdate:datetime}", async (context) =>
 });
 
 
+//5- Route Constraints Part 2
+
+app.Map("cities/{cityid:guid}", async (context) => 
+{
+    Guid cityId = Guid.Parse(Convert.ToString(context.Request.RouteValues["cityid"])!);
+    await context.Response.WriteAsync($"City information - {cityId}");
+});
+
+
 app.Run();
