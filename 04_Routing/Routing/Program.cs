@@ -97,5 +97,21 @@ app.Map("cities/{cityid:guid}", async (context) =>
     await context.Response.WriteAsync($"City information - {cityId}");
 });
 
+//6- Route Constraints Part 3
+
+app.Map("sales-report/{year:int:min(1900)}/{month:regex(^(apr|jul|oct|jan)$)}", async context =>
+{
+    int year = Convert.ToInt32(context.Request.RouteValues["year"]);
+    string? month = Convert.ToString(context.Request.RouteValues["month"]);
+
+    if (month == "apr" || month == "jul" || month == "oct" || month == "jan")
+    {
+        await context.Response.WriteAsync($"sales report - {year} - {month}");
+    }
+    else
+    {
+        await context.Response.WriteAsync($"{month} month is not allowed for sales report");
+    }
+});
 
 app.Run();
