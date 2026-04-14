@@ -1,3 +1,5 @@
+using Routing.CustomConstraints;
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -112,6 +114,22 @@ app.Map("sales-report/{year:int:min(1900)}/{month:regex(^(apr|jul|oct|jan)$)}", 
     {
         await context.Response.WriteAsync($"{month} month is not allowed for sales report");
     }
+});
+
+//7- Custom Route Constraint Class
+
+
+builder.Services.AddRouting(options =>
+{
+    options.ConstraintMap.Add("months", typeof(MonthsCustomConstraint));
+});
+
+app.Map("sales-report/{year:int:min(1900)}/{month:months}", async context =>
+{
+    int year = Convert.ToInt32(context.Request.RouteValues["year"]);
+    string? month = Convert.ToString(context.Request.RouteValues["month"]);
+
+    await context.Response.WriteAsync($"sales report - {year} - {month}");
 });
 
 app.Run();
