@@ -132,4 +132,13 @@ app.Map("sales-report/{year:int:min(1900)}/{month:months}", async context =>
     await context.Response.WriteAsync($"sales report - {year} - {month}");
 });
 
+
+//8- EndPoint Selection Order
+
+app.Map("sales-report/2024/jan", async (context) => 
+{
+    await context.Response.WriteAsync($"Sales report exclusively for 2024 - jan");
+});
+
+
 app.Run();
